@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 
-const Cards = () => {
+const Cards = ({ home, setInputDiv }) => {
 
   const data = [
     {
@@ -51,12 +51,13 @@ const Cards = () => {
             </div>
             
         ))}
+        {home === 'true' && 
+            <button onClick={() => setInputDiv('fixed')} className='flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 text-gray-300 hover:scale-105 hover:cursor-pointer transition-all duration-300'>
         
-        <div className='flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 text-gray-300 hover:scale-105 hover:cursor-pointer transition-all duration-300'>
+                <IoIosAddCircle className='text-4xl' />
+                <h2 className='text-2xl mt-4'>Add Task</h2>
+            </button>}
         
-            <IoIosAddCircle className='text-4xl' />
-            <h2 className='text-2xl mt-4'>Add Task</h2>
-        </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ import IncompTasks from './pages/IncompTasks';
 
 const App = () => {
   return (
-    <div className='bg-gray-900 text-white h-screen p-3'>
+    <div className='bg-gray-900 text-white h-screen p-3 relative'>
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />} >

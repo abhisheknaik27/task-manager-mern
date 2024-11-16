@@ -1,9 +1,10 @@
 import React from 'react'
+import Cards from '../components/Home/Cards'
 
 const ImpTasks = () => {
   return (
     <div>
-      Important Tasks
+      <Cards home={'false'}/>
     </div>
   )
 }
