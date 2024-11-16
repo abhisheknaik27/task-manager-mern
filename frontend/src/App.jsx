@@ -1,6 +1,5 @@
 import React from 'react'
 import Home from './pages/Home'
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AllTasks from './pages/AllTasks';
 import ImpTasks from './pages/ImpTasks';
@@ -8,6 +7,7 @@ import CompTasks from './pages/CompTasks';
 import IncompTasks from './pages/IncompTasks';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+
 
 const App = () => {
   return (
