@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const UserModel = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require ('jsonwebtoken');
 
 //signin api
 router.post('/signin', async(req, res) => {
@@ -40,6 +41,29 @@ router.post('/signin', async(req, res) => {
         });
     }
 
-})
+});
+
+//login api
+router.get('/login', async(req, res) => {
+    const { email } = req.body;
+    const { password } = req.body;
+    const existingEmail = await UserModel.findOne({ email });
+    if(!existingEmail){
+        return res.status(400).json({
+            msg: 'Email does not exist!'
+        })
+    }
+    bcrypt.compare(password, existingEmail.password, (err, data) => {
+        if(data){
+            const authClaims = [{email: email}, {jti: jwt.sign({},'admin123')}];
+            const token = jwt.sign({ authClaims }, 'admin123', {expiresIn: '2d'});
+            res.status(200).json({ id: existingEmail._id, token: token });
+        } else {
+            return res.status(400).json({
+                msg: 'Password does not match!'
+            })
+        }
+    })
+});
 
 module.exports = router;
