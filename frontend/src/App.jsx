@@ -6,6 +6,8 @@ import AllTasks from './pages/AllTasks';
 import ImpTasks from './pages/ImpTasks';
 import CompTasks from './pages/CompTasks';
 import IncompTasks from './pages/IncompTasks';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 const App = () => {
   return (
@@ -18,6 +20,10 @@ const App = () => {
             <Route path='/completedTasks' element={<CompTasks />} />
             <Route path='/incompleteTasks' element={<IncompTasks />} />
           </Route>
+          
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+
         </Routes>
       </Router>
       
