@@ -5,6 +5,7 @@ import InputData from '../components/Home/InputData';
 
 const AllTasks = () => {
   const [inputDiv ,setInputDiv] = useState('hidden');
+  
   return (
     <>
       <div>
