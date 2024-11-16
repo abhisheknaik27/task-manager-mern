@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const UserModel = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 //signin api
 router.post('/signin', async(req, res) => {
@@ -24,11 +25,11 @@ router.post('/signin', async(req, res) => {
                 msg: "Email Already Exists"
             });
         }
-        
+        const hashPassword = await bcrypt.hash(req.body.password, 10);
         await UserModel.create({
             username: req.body.username, 
             email: req.body.email,
-            password: req.body.password,
+            password: hashPassword,
         });
         return res.status(200).json({ msg: 'Signed in successfully'});
         
