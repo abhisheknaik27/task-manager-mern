@@ -3,10 +3,19 @@ import { CgNotes } from "react-icons/cg";
 import { MdLabelImportant } from "react-icons/md";
 import { FaCheckDouble } from "react-icons/fa";
 import { TbNotebookOff } from "react-icons/tb";
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authActions } from "../../store/auth";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const history = useNavigate();
+  const logout = () => {
+    dispatch(authActions.logout());
+    localStorage.clear("id");
+    localStorage.clear("token");
+    history('/signup');
+  }
 
   const data = [
     {
@@ -47,7 +56,7 @@ const Sidebar = () => {
         ))}
       </div>
       <div>
-        <button className='bg-gray-600 w-full p-2 rounded'>Log Out</button>
+        <button className='bg-gray-600 w-full p-2 rounded' onClick={logout }>Log Out</button>
         </div>
     </>
   )
