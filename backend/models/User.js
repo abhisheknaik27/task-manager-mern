@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    tasks: {
+    task: {
         type: mongoose.Types.ObjectId,
         ref: "task"
     }
