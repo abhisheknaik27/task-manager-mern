@@ -8,21 +8,28 @@ router.post('/createTask', authenticateToken ,  async (req, res) => {
         const { title, description } = req.body;
         const { id } = req.headers;
 
-        const newtask = await TaskModel.create({ title, description });
-        const taskId = newtask._id;
-        await UserModel.findByIdAndUpdate(id, {$push:{task: taskId._id}});
+        const newtask = new TaskModel({ title: title, description:description });
+        const saveTask = await newtask.save();
+        const taskId = saveTask._id;
+
+        await UserModel.findByIdAndUpdate(id, { $push: {tasks: taskId._id} });
         res.status(200).json({ msg: "Task Created" });
+        
     }catch(err){
         console.log(err);
         res.status(400).json({msg: "Internal Server Error"});
     }
 });
 
-router.get('/getAllTasks', authenticateToken, async(req, res) => {
+router.get('/allTasks', authenticateToken, async(req, res) => {
     try{
         const { id } = req.headers;
-        const userData = await UserModel.findById(id).populate('task');
-        res.status(200).json({ userData });
+        const userData = await UserModel.findById(id).populate({
+            path: "tasks",
+            options: { sort: { createdAt: -1 } }
+    });
+        
+        res.status(200).json({ data: userData });
     }catch(err){
         console.log(err);
         res.status(400).json({msg: "Internal Server Error"});

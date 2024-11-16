@@ -16,10 +16,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    task: {
-        type: mongoose.Types.ObjectId,
-        ref: "task"
-    }
+    tasks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userTask"
+    }]
 });
 
 const UserModel = mongoose.model('user', UserSchema);
