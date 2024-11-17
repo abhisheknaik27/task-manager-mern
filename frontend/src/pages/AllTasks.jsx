@@ -7,6 +7,8 @@ import axios from 'axios';
 const AllTasks = () => {
   const [inputDiv ,setInputDiv] = useState('hidden');
   const [taskData, setTaskData] = useState();
+  const [updatedData, setUpdatedData] = useState({id:"", title:"", description:""}); 
+  
   const headers = { 
     id: localStorage.getItem("id"), 
     authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -27,9 +29,15 @@ const AllTasks = () => {
               <IoIosAddCircle className='text-4xl text-gray-400 hover:text-gray-100 transition-all duration-300'/>
             </button>
         </div>
-        {taskData && <Cards home={"true"} setInputDiv={setInputDiv} data={taskData.tasks}/>}
+        {taskData && 
+        <Cards home={"true"} setInputDiv={setInputDiv} data={taskData.tasks} setUpdatedData={setUpdatedData}/>
+        }
       </div>
-      <InputData inputDiv={inputDiv} setInputDiv={setInputDiv}/>
+      <InputData 
+        inputDiv={inputDiv} 
+        setInputDiv={setInputDiv} 
+        updatedData={updatedData}
+        setUpdatedData={setUpdatedData}/>
     </>
   )
 }
