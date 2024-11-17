@@ -18,7 +18,10 @@ const AllTasks = () => {
       const response = await axios.get("http://localhost:3000/api/v2/allTasks", {headers});
       setTaskData(response.data.data);
     };
-    fetch()
+    if(localStorage.getItem('id') && localStorage.getItem('token')){
+      fetch();
+    }
+    
   }, [])
   console.log(taskData); 
   return (

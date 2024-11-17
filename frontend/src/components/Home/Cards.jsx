@@ -6,8 +6,8 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
 import axios from 'axios';
 
-const Cards = ({ home, setInputDiv, data: initialData, setUpdatedData }) => {
-  const [status, setStatus] = useState(initialData || []);
+const Cards = ({ home, setInputDiv, data, setUpdatedData }) => {
+  const [status, setStatus] = useState(data || []);
    
 
   const headers = { 
@@ -89,7 +89,7 @@ const Cards = ({ home, setInputDiv, data: initialData, setUpdatedData }) => {
 
   return (
     <div className='grid grid-cols-3 gap-4 p-4'>
-        {status && status.map((item, i) => (
+        {data && data.map((item, i) => (
             <div key={item._id} className='flex flex-col justify-between bg-gray-800 rounded-sm p-4'>
                 <div>
                     <h3 className='text-xl font-semibold'>{item.title}</h3>
@@ -108,7 +108,9 @@ const Cards = ({ home, setInputDiv, data: initialData, setUpdatedData }) => {
                         {item.important === false ? <CiHeart /> : <FaHeart className='text-red-500' />}
                             
                         </button>
-                        <button onClick={() => handleUpdate(item._id, item.title, item.description)}><FaEdit /></button>
+
+                        {home !== "false" && <button onClick={() => handleUpdate(item._id, item.title, item.description)}><FaEdit /></button>}
+                        
                         <button onClick={() => deleteTask(item._id)}><MdDelete /></button>
                     </div>
                 </div>
