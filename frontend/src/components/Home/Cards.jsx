@@ -6,65 +6,40 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
 import axios from 'axios';
 
-const Cards = ({ home, setInputDiv, data, setUpdatedData }) => {
-  const [status, setStatus] = useState(data || []);
-   
+const Cards = ({ home, setInputDiv, data, setUpdatedData }) => { 
 
   const headers = { 
     id: localStorage.getItem("id"), 
     authorization: `Bearer ${localStorage.getItem("token")}`,
   };
+  
+
   const handleCompleteTask = async(id) => {
-
-    setStatus(prevData =>
-        prevData.map(item =>
-          item._id === id ? { ...item, complete: !item.complete } : item
-        )
-      );
-
     try{
         const response = await axios.put(`http://localhost:3000/api/v2/updateCompleteTask/${id}`, 
         {},
         {headers}
         );
         console.log(response);
+        window.location.reload(true);
     
     } catch(err){
         console.error("Failed to update task:", err);
         alert("Something went wrong while updating the task.");
-        // Rollback in case of error
-        setStatus((prevData) =>
-            prevData.map((item) =>
-            item._id === id ? { ...item, complete: !item.complete } : item
-        )
-      );
-
     }
   };
   const handleImp = async(id) => {
-
-    setStatus(prevData =>
-        prevData.map(item =>
-          item._id === id ? { ...item, important: !item.important } : item
-        )
-      );
-
     try{
         const response = await axios.put(`http://localhost:3000/api/v2/updateImpTask/${id}`, 
         {},
         {headers}
         );
         console.log(response);
+        window.location.reload(true);
     
     } catch(err){
         console.error("Failed to update task:", err);
         alert("Something went wrong while updating the task.");
-        // Rollback in case of error
-        setStatus((prevData) =>
-            prevData.map((item) =>
-            item._id === id ? { ...item, important: !item.important } : item
-        )
-        );
     }
   };
 
@@ -78,7 +53,8 @@ const Cards = ({ home, setInputDiv, data, setUpdatedData }) => {
         const response = await axios.delete(`http://localhost:3000/api/v2/deleteTask/${id}`,
         {headers}
         );
-            console.log(response.data.msg);
+        console.log(response.data.msg);
+        window.location.reload(true);
         
         } catch(err){
             console.error("Failed to update task:", err);
